@@ -23,6 +23,9 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
+# Local Claude Code tooling config
+.claude/
+
 # Env
 .env
 .env.*
