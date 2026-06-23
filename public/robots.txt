@@ -1,0 +1,19 @@
+# Azam Ayaz — robots.txt
+# Search engines and AI assistants are welcome to index this site.
+User-agent: *
+Allow: /
+
+# Common AI crawlers explicitly allowed for discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://azamayaz.com/sitemap.xml

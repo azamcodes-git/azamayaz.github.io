@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0b0f17" />
+
+    <!-- Primary meta (managed dynamically per-route by the Seo component) -->
+    <title>Azam Ayaz — Software Engineer & Founder building AI-first systems</title>
+    <meta
+      name="description"
+      content="Azam Ayaz is a software engineer and founder who designs and builds AI-powered applications, full-stack web systems, and scalable business software. Hire for custom development, AI integration, and enterprise solutions."
+    />
+    <link rel="canonical" href="https://azamayaz.com/" />
+
+    <!-- Performance: preconnect to font host -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Azam Ayaz" />
+    <meta property="og:title" content="Azam Ayaz — Software Engineer & Founder" />
+    <meta
+      property="og:description"
+      content="Engineer and founder building AI-powered applications, full-stack web systems, and scalable business software."
+    />
+    <meta property="og:url" content="https://azamayaz.com/" />
+    <meta property="og:image" content="https://azamayaz.com/og-image.svg" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Azam Ayaz — Software Engineer & Founder" />
+    <meta
+      name="twitter:description"
+      content="Engineer and founder building AI-powered applications, full-stack systems, and scalable business software."
+    />
+    <meta name="twitter:image" content="https://azamayaz.com/og-image.svg" />
+
+    <!-- Person structured data (baseline; route-level schema added at runtime) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Azam Ayaz",
+        "jobTitle": "Software Engineer & Founder",
+        "url": "https://azamayaz.com/",
+        "knowsAbout": [
+          "Software Engineering",
+          "Artificial Intelligence",
+          "Full-Stack Development",
+          "Computer Vision",
+          "Hyperspectral Imaging"
+        ],
+        "sameAs": []
+      }
+    </script>
+  </head>
+  <body>
+    <!-- SPA restore script: replays the path stashed by 404.html on GitHub Pages -->
+    <script>
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, '', l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

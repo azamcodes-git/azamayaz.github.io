@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(\"---NODE---\")",
+      "PowerShell(\"---NPM---\")",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(\"--- git identity ---\"; git config --global user.name; git config --global user.email; \"--- credential helper ---\"; git config --global credential.helper; \"--- winget ---\"; \\(Get-Command winget -ErrorAction SilentlyContinue\\).Source)"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Azam Ayaz — Software Engineer & Founder",
+  "short_name": "Azam Ayaz",
+  "description": "AI-powered applications, full-stack web systems, and scalable business software.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

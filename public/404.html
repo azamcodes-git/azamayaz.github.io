@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Azam Ayaz</title>
+    <!--
+      SPA fallback for GitHub Pages. Stashes the requested path and bounces to
+      the app root, where the matching restore script (in index.html) replays it.
+      Based on the well-known spa-github-pages technique.
+    -->
+    <script>
+      (function () {
+        var segmentCount = 0; // set to 1 if hosted under a project subpath
+        var l = window.location;
+        var path =
+          l.pathname
+            .split('/')
+            .slice(0, 1 + segmentCount)
+            .join('/') +
+          '/?p=/' +
+          l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash;
+        l.replace(l.origin + path);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
