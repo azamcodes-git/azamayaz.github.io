@@ -1,11 +1,16 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { ScrollProgress } from './ScrollProgress';
 import { BackToTop } from './BackToTop';
 import { ScrollToTop } from './ScrollToTop';
+import { usePrefersReducedMotion } from '@/lib/hooks';
 
 export function Layout() {
+  const { pathname } = useLocation();
+  const reduced = usePrefersReducedMotion();
+
   return (
     <>
       <a
@@ -18,7 +23,15 @@ export function Layout() {
       <ScrollToTop />
       <Navbar />
       <main id="main" className="pt-16">
-        <Outlet />
+        {/* Re-keyed per route so navigation gets a soft entrance transition */}
+        <motion.div
+          key={pathname}
+          initial={reduced ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Outlet />
+        </motion.div>
       </main>
       <Footer />
       <BackToTop />

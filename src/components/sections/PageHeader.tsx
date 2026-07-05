@@ -22,7 +22,7 @@ export function PageHeader({ eyebrow, title, description, crumbs, children }: Pa
     <section className="relative overflow-hidden border-b border-border">
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.15] mask-fade-b" />
       <div
-        className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full opacity-30 blur-3xl"
+        className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full opacity-30 blur-3xl animate-aurora"
         style={{ background: 'radial-gradient(closest-side, rgb(var(--brand) / 0.6), transparent)' }}
       />
       <div className="container relative py-16 sm:py-20">

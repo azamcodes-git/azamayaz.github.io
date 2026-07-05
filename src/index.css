@@ -127,6 +127,69 @@
 
   .btn-primary {
     @apply btn bg-brand text-white shadow-glow hover:brightness-110 active:scale-[0.98];
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Light sweep across primary buttons on hover */
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -160%;
+    height: 100%;
+    width: 55%;
+    background: linear-gradient(105deg, transparent, rgb(255 255 255 / 0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+    pointer-events: none;
+  }
+
+  .btn-primary:hover::after {
+    left: 160%;
+  }
+
+  /* 3D tilt — driven by --rx/--ry CSS vars set from a mousemove handler */
+  .tilt {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+      translateZ(0);
+    will-change: transform;
+  }
+
+  /* Mouse-tracking glow overlay — driven by --mx/--my CSS vars */
+  .spotlight {
+    position: relative;
+  }
+
+  .spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      340px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--brand) / 0.16),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+  }
+
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+
+  /* Infinite scrolling technology strip */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 36s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
 
   .btn-secondary {
@@ -154,6 +217,31 @@
   }
 }
 
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(45px, -35px) scale(1.18);
+  }
+}
+
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -166,6 +254,29 @@
     @apply bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent;
   }
 
+  /* Living gradient text — slow hue sweep across the brand gradient */
+  .gradient-text-animated {
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--brand)),
+      rgb(var(--accent)),
+      rgb(var(--brand))
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 5s linear infinite;
+  }
+
+  /* Slow-drifting ambient blobs */
+  .animate-aurora {
+    animation: aurora 16s ease-in-out infinite;
+  }
+  .animate-aurora-slow {
+    animation: aurora 24s ease-in-out infinite reverse;
+  }
+
   .grid-pattern {
     background-image: linear-gradient(rgb(var(--border) / 0.5) 1px, transparent 1px),
       linear-gradient(90deg, rgb(var(--border) / 0.5) 1px, transparent 1px);
@@ -175,6 +286,11 @@
   .mask-fade-b {
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
     mask-image: linear-gradient(to bottom, black 60%, transparent);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   }
 
   .scrollbar-none {

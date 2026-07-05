@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 import { site } from '@/data/site';
 import { Icon } from '@/components/Icon';
 import { usePrefersReducedMotion } from '@/lib/hooks';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import { Magnetic } from '@/components/ui/Magnetic';
 import { cn } from '@/lib/cn';
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const container = {
   hidden: {},
@@ -11,8 +15,47 @@ const container = {
 };
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
 };
+
+/** Headline words; gradient ones get the animated brand sweep. */
+const headline: { text: string; gradient?: boolean }[] = [
+  { text: 'Engineering' },
+  { text: 'AI-first', gradient: true },
+  { text: 'software', gradient: true },
+  { text: 'that' },
+  { text: 'runs' },
+  { text: 'real' },
+  { text: 'businesses.' },
+];
+
+function HeadlineReveal({ reduced }: { reduced: boolean }) {
+  return (
+    <h1 className="mt-6 text-4xl font-bold leading-[1.08] sm:text-6xl lg:text-7xl">
+      {headline.map((w, i) => (
+        <span
+          key={w.text}
+          className="-mb-2 mr-[0.26em] inline-block overflow-hidden pb-2 align-top"
+        >
+          {reduced ? (
+            <span className={cn('inline-block', w.gradient && 'gradient-text-animated')}>
+              {w.text}
+            </span>
+          ) : (
+            <motion.span
+              className={cn('inline-block', w.gradient && 'gradient-text-animated')}
+              initial={{ y: '110%' }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.12 + i * 0.07, duration: 0.75, ease: EASE }}
+            >
+              {w.text}
+            </motion.span>
+          )}
+        </span>
+      ))}
+    </h1>
+  );
+}
 
 export function Hero() {
   const reduced = usePrefersReducedMotion();
@@ -23,14 +66,14 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Ambient background */}
+      {/* Ambient background — slow-drifting aurora blobs over a grid */}
       <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.18] mask-fade-b" />
       <div
-        className="pointer-events-none absolute -top-40 right-[-10%] h-[36rem] w-[36rem] rounded-full opacity-40 blur-3xl"
+        className="pointer-events-none absolute -top-40 right-[-10%] h-[36rem] w-[36rem] rounded-full opacity-40 blur-3xl animate-aurora"
         style={{ background: 'radial-gradient(closest-side, rgb(var(--brand) / 0.55), transparent)' }}
       />
       <div
-        className="pointer-events-none absolute -bottom-48 left-[-10%] h-[32rem] w-[32rem] rounded-full opacity-30 blur-3xl"
+        className="pointer-events-none absolute -bottom-48 left-[-10%] h-[32rem] w-[32rem] rounded-full opacity-30 blur-3xl animate-aurora-slow"
         style={{ background: 'radial-gradient(closest-side, rgb(var(--accent) / 0.5), transparent)' }}
       />
 
@@ -46,11 +89,7 @@ export function Hero() {
             </span>
           </MV>
 
-          <MV variants={reduced ? undefined : item}>
-            <h1 className="mt-6 text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-              Engineering <span className="gradient-text">AI-first software</span> that runs real businesses.
-            </h1>
-          </MV>
+          <HeadlineReveal reduced={reduced} />
 
           <MV variants={reduced ? undefined : item}>
             <p className="mt-6 max-w-xl text-lg text-muted text-pretty sm:text-xl">
@@ -61,9 +100,11 @@ export function Hero() {
           </MV>
 
           <MV variants={reduced ? undefined : item} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link to="/contact" className="btn-primary">
-              Start a project <Icon name="arrow-right" size={16} />
-            </Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-primary w-full sm:w-auto">
+                Start a project <Icon name="arrow-right" size={16} />
+              </Link>
+            </Magnetic>
             <Link to="/projects" className="btn-secondary">
               Explore the work
             </Link>
@@ -75,7 +116,9 @@ export function Hero() {
           >
             {site.stats.map((s) => (
               <div key={s.label} className="bg-surface px-4 py-4 text-center">
-                <div className="font-display text-xl font-bold text-ink">{s.value}</div>
+                <div className="font-display text-xl font-bold text-ink">
+                  <AnimatedCounter value={s.value} />
+                </div>
                 <div className="mt-1 text-2xs text-subtle">{s.label}</div>
               </div>
             ))}
@@ -84,11 +127,11 @@ export function Hero() {
 
         {/* Portrait + floating cards */}
         <MV
-          {...(reduced ? {} : { initial: { opacity: 0, scale: 0.96 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } })}
+          {...(reduced ? {} : { initial: { opacity: 0, scale: 0.96 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 0.8, ease: EASE } })}
           className="relative lg:col-span-5"
         >
           <div className="relative mx-auto max-w-sm">
-            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand/30 to-accent/20 blur-2xl" />
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand/30 to-accent/20 blur-2xl animate-aurora-slow" />
             <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface shadow-card">
               {/* Portrait placeholder */}
               <div className="relative aspect-[4/5] bg-gradient-to-br from-surface-2 to-surface">

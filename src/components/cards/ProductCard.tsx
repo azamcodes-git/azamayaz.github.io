@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom';
 import type { Product } from '@/data/types';
 import { CoverArt } from '@/components/ui/CoverArt';
 import { Icon } from '@/components/Icon';
+import { useTilt } from '@/lib/hooks';
 
 export function ProductCard({ product }: { product: Product }) {
+  const tilt = useTilt(5);
   return (
     <Link
       to={`/products/${product.slug}`}
-      className="group card card-hover flex flex-col overflow-hidden"
+      {...tilt}
+      className="group card tilt spotlight flex flex-col overflow-hidden hover:border-brand/50 hover:shadow-glow"
     >
       <div className="relative p-3">
         {product.badge && (

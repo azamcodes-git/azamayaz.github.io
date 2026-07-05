@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Seo } from '@/components/Seo';
 import { Hero } from '@/components/sections/Hero';
+import { TechMarquee } from '@/components/sections/TechMarquee';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Reveal } from '@/components/ui/Reveal';
 import { Icon } from '@/components/Icon';
@@ -65,8 +66,10 @@ export default function HomePage() {
 
       <Hero />
 
+      <TechMarquee />
+
       {/* What I do — capability overview */}
-      <Section className="border-y border-border bg-surface/30">
+      <Section className="border-b border-border bg-surface/30">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="What I do"

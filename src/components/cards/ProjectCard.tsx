@@ -2,14 +2,18 @@ import { Link } from 'react-router-dom';
 import type { Project } from '@/data/types';
 import { CoverArt } from '@/components/ui/CoverArt';
 import { Icon } from '@/components/Icon';
+import { useTilt } from '@/lib/hooks';
 import { cn } from '@/lib/cn';
 
 export function ProjectCard({ project, featured }: { project: Project; featured?: boolean }) {
+  const tilt = useTilt(featured ? 2.5 : 5);
   return (
     <Link
       to={`/projects/${project.slug}`}
+      {...tilt}
       className={cn(
-        'group card card-hover flex flex-col overflow-hidden',
+        'group card tilt spotlight flex flex-col overflow-hidden',
+        'hover:border-brand/50 hover:shadow-glow',
         featured && 'lg:flex-row',
       )}
     >

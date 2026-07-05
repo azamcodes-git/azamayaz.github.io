@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react';
 
 /** Scroll-through-page progress as 0..1, throttled to animation frames. */
 export function useScrollProgress(): number {
@@ -81,6 +81,38 @@ export function usePrefersReducedMotion(): boolean {
     return () => mq.removeEventListener('change', onChange);
   }, []);
   return reduced;
+}
+
+/**
+ * Mouse-driven 3D tilt + spotlight tracking. Spread the returned handlers on an
+ * element carrying the `tilt` / `spotlight` CSS classes — the handlers write
+ * `--rx/--ry/--mx/--my` custom properties the CSS reads. No-ops for reduced motion.
+ */
+export function useTilt(maxDeg = 5) {
+  const reduced = usePrefersReducedMotion();
+
+  const onMouseMove = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const el = e.currentTarget;
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', `${px * 100}%`);
+      el.style.setProperty('--my', `${py * 100}%`);
+      if (reduced) return;
+      el.style.setProperty('--rx', `${((0.5 - py) * maxDeg * 2).toFixed(2)}deg`);
+      el.style.setProperty('--ry', `${((px - 0.5) * maxDeg * 2).toFixed(2)}deg`);
+    },
+    [maxDeg, reduced],
+  );
+
+  const onMouseLeave = useCallback((e: MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    el.style.setProperty('--rx', '0deg');
+    el.style.setProperty('--ry', '0deg');
+  }, []);
+
+  return { onMouseMove, onMouseLeave };
 }
 
 /** Generic keyboard shortcut binding. Combine with modifiers via the predicate. */
