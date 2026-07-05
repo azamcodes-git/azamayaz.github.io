@@ -60,10 +60,32 @@ src/
 
 ## Editing content
 
-**You rarely need to touch components to update the site.** All content is stored
-as typed data in `src/data/`. To add a project, product, service, FAQ, timeline
-entry, etc., append a new object to the relevant array — pages and SEO update
-automatically.
+### The easy way: the built-in Admin Panel (no code)
+
+Open **`/admin`** on the live site (there's a subtle "Admin" link in the footer).
+It lets you edit **everything** — site identity, social links, projects, products,
+services, research, case studies, technologies, timeline, testimonials, and FAQs —
+in friendly forms, then publish with one click.
+
+**One-time setup:**
+1. GitHub → Settings → Developer settings → [Fine-grained tokens → Generate new token](https://github.com/settings/personal-access-tokens/new)
+2. Repository access: *Only select repositories* → this repo
+3. Permissions → **Contents: Read and write**
+4. Paste the token into `/admin`. It's stored **only in your browser** (localStorage).
+
+**How it works:** publishing commits `public/content.json` to the repo via the
+GitHub API, which triggers the deploy workflow — changes are live in ~2 minutes.
+The site loads `content.json` at boot and falls back to the bundled defaults in
+`src/data/` if it doesn't exist. Extras: draft autosave in your browser, item
+reorder/duplicate/delete, a raw-JSON power editor, and a one-click JSON backup
+download.
+
+### The code way
+
+All default content is stored as typed data in `src/data/`. To add a project,
+product, service, FAQ, timeline entry, etc., append a new object to the relevant
+array — pages and SEO update automatically. Note: once you've published from the
+admin panel, `public/content.json` **overrides** the `src/data/` defaults.
 
 - Update your name, role, email, and social links in [`src/data/site.ts`](src/data/site.ts).
 - Replace placeholder social URLs (`#`) with real links.

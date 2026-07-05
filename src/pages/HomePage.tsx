@@ -19,27 +19,6 @@ import { research } from '@/data/research';
 import { faqs } from '@/data/faqs';
 import { site } from '@/data/site';
 
-const personSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: site.name,
-  jobTitle: 'Software Engineer & Founder',
-  url: site.url,
-  email: site.email,
-  description: site.shortBio,
-  knowsAbout: [
-    'Software Engineering',
-    'Artificial Intelligence',
-    'Full-Stack Development',
-    'React',
-    'Python',
-    'Django',
-    'Computer Vision',
-    'Hyperspectral Imaging',
-  ],
-  sameAs: [],
-};
-
 function SectionLink({ to, label }: { to: string; label: string }) {
   return (
     <Link
@@ -54,6 +33,28 @@ function SectionLink({ to, label }: { to: string; label: string }) {
 export default function HomePage() {
   const featured = projects.filter((p) => p.featured).slice(0, 4);
   const homeFaqs = faqs.slice(0, 6);
+
+  // Built at render time so admin-published content is always reflected.
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    jobTitle: site.role,
+    url: site.url,
+    email: site.email,
+    description: site.shortBio,
+    knowsAbout: [
+      'Software Engineering',
+      'Artificial Intelligence',
+      'Full-Stack Development',
+      'React',
+      'Python',
+      'Django',
+      'Computer Vision',
+      'Hyperspectral Imaging',
+    ],
+    sameAs: [],
+  };
 
   return (
     <>

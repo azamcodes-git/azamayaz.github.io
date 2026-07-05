@@ -3,6 +3,30 @@
  * touch these structured files — never the rendering components.
  */
 
+export interface SocialLink {
+  label: string;
+  href: string;
+  handle: string;
+}
+
+export interface SiteInfo {
+  name: string;
+  role: string;
+  shortBio: string;
+  url: string;
+  email: string;
+  location: string;
+  availability: string;
+  social: {
+    github: SocialLink;
+    linkedin: SocialLink;
+    x: SocialLink;
+    email: SocialLink;
+  };
+  nav: { label: string; to: string }[];
+  stats: { value: string; label: string }[];
+}
+
 export type ProjectCategory =
   | 'AI'
   | 'Business Software'

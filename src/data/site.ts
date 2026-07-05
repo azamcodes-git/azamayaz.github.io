@@ -1,6 +1,11 @@
-/** Global site configuration — single source of truth for identity & links. */
+import type { SiteInfo } from './types';
 
-export const site = {
+/**
+ * Global site configuration — single source of truth for identity & links.
+ * These are the bundled defaults; a deployed /content.json (managed from the
+ * /admin panel) overrides them at boot. Mutable by design — see lib/content.ts.
+ */
+export const site: SiteInfo = {
   name: 'Azam Ayaz',
   role: 'Software Engineer & Founder',
   shortBio:
@@ -29,4 +34,4 @@ export const site = {
     { value: '100%', label: 'Ownership mindset' },
     { value: 'AI-first', label: 'Engineering approach' },
   ],
-} as const;
+};

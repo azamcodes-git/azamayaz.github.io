@@ -19,6 +19,7 @@ const CaseStudyDetailPage = lazy(() => import('@/pages/CaseStudyDetailPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const AdminPage = lazy(() => import('@/pages/admin/AdminPage'));
 
 export default function App() {
   return (
@@ -103,6 +104,14 @@ export default function App() {
             element={
               <Suspense fallback={<Loader />}>
                 <ContactPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="admin"
+            element={
+              <Suspense fallback={<Loader />}>
+                <AdminPage />
               </Suspense>
             }
           />

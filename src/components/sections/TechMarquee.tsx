@@ -1,9 +1,9 @@
 import { technologies } from '@/data/technologies';
 
-const names = Array.from(new Set(technologies.flatMap((g) => g.items.map((i) => i.name))));
-
 /** Infinite scrolling strip of technologies. Pauses on hover; frozen for reduced motion. */
 export function TechMarquee() {
+  // Computed at render time so admin-published content is always reflected.
+  const names = Array.from(new Set(technologies.flatMap((g) => g.items.map((i) => i.name))));
   return (
     <div className="border-y border-border bg-surface/40 py-5" aria-label="Technologies I work with">
       <div className="marquee mask-fade-x overflow-hidden">

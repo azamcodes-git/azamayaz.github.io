@@ -102,8 +102,11 @@ export function Footer() {
           <p className="text-sm text-subtle">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <p className="text-sm text-subtle">
+          <p className="flex items-center gap-3 text-sm text-subtle">
             Built with React, TypeScript &amp; Tailwind CSS.
+            <Link to="/admin" className="opacity-50 transition hover:opacity-100 hover:text-ink">
+              Admin
+            </Link>
           </p>
         </div>
       </div>
